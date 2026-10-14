@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="hi" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="headTitle">Remjhim Cyber Zone - Dynamic Job Portal & Services</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Inter + Hind) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Hind', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .marquee p {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 25s linear infinite;
+        }
+        .marquee p:hover {
+            animation-play-state: paused;
+        }
+        @keyframes marquee {
+            0%   { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-800 bg-slate-50 min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div id="announcementBar" class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white text-xs sm:text-sm py-2 px-4 shadow-inner">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+            <div class="flex items-center space-x-2 overflow-hidden w-full md:w-3/4">
+                <span class="bg-red-600 text-white font-bold px-2 py-0.5 rounded text-xs shrink-0 animate-pulse">LATEST NEWS</span>
+                <div class="marquee text-amber-200 font-medium text-xs sm:text-sm">
+                    <p id="announcementText">?? Welcome to Remjhim Cyber Zone - Contact us on WhatsApp for fast form fillup!</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 text-xs shrink-0">
+                <a id="topPhoneLink" href="tel:9876543210" class="hover:text-amber-300 transition-colors"><i class="fa-solid fa-phone me-1"></i> <span id="topPhoneText">+91 9876543210</span></a>
+                <a id="topWhatsAppLink" href="https://wa.me/919876543210" target="_blank" class="hover:text-green-400 transition-colors"><i class="fa-brands fa-whatsapp me-1"></i> WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Logo & Name -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="filterByCategory('all')">
+                    <div id="brandIconBox" class="w-12 h-12 bg-gradient-to-tr from-brand-600 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
+                        <i id="brandIcon" class="fa-solid fa-laptop-code text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-black tracking-tight text-slate-900" id="siteNameDisplay">
+                            REMJHIM <span class="text-brand-600">CYBER ZONE</span>
+                        </h1>
+                        <p class="text-xs text-slate-500 font-semibold tracking-wide" id="siteTaglineDisplay">SARKARI RESULT, ONLINE FORMS & ADMIT CARD</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center space-x-1">
+                    <button onclick="filterByCategory('all')" class="px-3 py-2 text-sm font-semibold text-slate-700 hover:text-brand-600 rounded-lg hover:bg-slate-100 transition">
+                        <i class="fa-solid fa-house me-1 text-slate-400"></i> Home
+                    </button>
+                    <button onclick="filterByCategory('Latest Job')" class="px-3 py-2 text-sm font-semibold text-slate-700 hover:text-brand-600 rounded-lg hover:bg-slate-100 transition">
+                        <i class="fa-solid fa-briefcase me-1 text-blue-500"></i> Latest Jobs
+                    </button>
+                    <button onclick="filterByCategory('Admit Card')" class="px-3 py-2 text-sm font-semibold text-slate-700 hover:text-brand-600 rounded-lg hover:bg-slate-100 transition">
+                        <i class="fa-solid fa-id-card me-1 text-amber-500"></i> Admit Cards
+                    </button>
+                    <button onclick="filterByCategory('Result')" class="px-3 py-2 text-sm font-semibold text-slate-700 hover:text-brand-600 rounded-lg hover:bg-slate-100 transition">
+                        <i class="fa-solid fa-square-check me-1 text-emerald-500"></i> Results
+                    </button>
+                    <button onclick="showCyberServicesModal()" class="px-3 py-2 text-sm font-semibold text-slate-700 hover:text-brand-600 rounded-lg hover:bg-slate-100 transition">
+                        <i class="fa-solid fa-gears me-1 text-purple-500"></i> Cyber Services
+                    </button>
+                </nav>
+
+                <!-- Admin & Action Buttons -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="openAdminModal()" class="inline-flex items-center px-4 py-2 border border-slate-300 rounded-lg text-xs sm:text-sm font-bold text-slate-700 bg-white hover:bg-slate-50 hover:border-brand-500 hover:text-brand-600 shadow-sm transition">
+                        <i class="fa-solid fa-key me-2 text-amber-500"></i> Admin Login
+                    </button>
+                    <a id="headerWaBtn" href="#" target="_blank" class="hidden sm:inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-xs sm:text-sm font-bold text-white bg-green-600 hover:bg-green-700 shadow-sm transition">
+                        <i class="fa-brands fa-whatsapp me-2 text-base"></i> Direct Apply
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO & SEARCH SECTION -->
+    <section class="bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 text-white py-10 px-4 sm:px-6 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-500/20 border border-brand-400/30 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-3">
+                <i class="fa-solid fa-bolt text-amber-400 me-1"></i> Official Online Portal
+            </span>
+            <h2 id="heroTitleDisplay" class="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3">
+                Sabhi Sarkari Result, Admit Card & Online Forms Ek Jagah
+            </h2>
+            <p id="heroSubtitleDisplay" class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto mb-6">
+                Bihar, UP aur Central Government ke sabhi latest vacancies ke official links, notifications aur Cyber Zone se ghar baithe form bharwane ki suvidha.
+            </p>
+
+            <!-- Search Input Box -->
+            <div class="max-w-2xl mx-auto relative mb-6">
+                <div class="flex items-center bg-white rounded-xl p-1.5 shadow-2xl focus-within:ring-4 focus-within:ring-brand-500/40 transition">
+                    <i class="fa-solid fa-magnifying-glass text-slate-400 ml-3 text-lg"></i>
+                    <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="Search Jobs, Admit Cards, Services..." class="w-full px-3 py-2 text-slate-800 focus:outline-none text-sm sm:text-base rounded-lg">
+                    <button onclick="handleSearch()" class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-lg font-bold text-sm transition shrink-0">
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Chips -->
+            <div class="flex flex-wrap justify-center gap-2 text-xs sm:text-sm">
+                <button onclick="filterByCategory('all')" class="chip-btn active bg-white/10 hover:bg-white/20 text-white px-4 py-1.5 rounded-full border border-white/10 transition font-medium">
+                    ?? All Updates
+                </button>
+                <button onclick="filterByCategory('Latest Job')" class="chip-btn bg-white/10 hover:bg-white/20 text-white px-4 py-1.5 rounded-full border border-white/10 transition font-medium">
+                    ?? Latest Jobs
+                </button>
+                <button onclick="filterByCategory('Admit Card')" class="chip-btn bg-white/10 hover:bg-white/20 text-white px-4 py-1.5 rounded-full border border-white/10 transition font-medium">
+                    ??? Admit Cards
+                </button>
+                <button onclick="filterByCategory('Result')" class="chip-btn bg-white/10 hover:bg-white/20 text-white px-4 py-1.5 rounded-full border border-white/10 transition font-medium">
+                    ?? Results
+                </button>
+                <button onclick="showCyberServicesModal()" class="chip-btn bg-purple-600/60 hover:bg-purple-600 text-white px-4 py-1.5 rounded-full border border-purple-400/30 transition font-bold">
+                    ? Cyber Zone Services
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- QUICK SARKARI RESULT TYPE DASHBOARD -->
+        <div class="mb-10">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-extrabold text-slate-800 flex items-center">
+                    <i class="fa-solid fa-fire text-orange-500 me-2"></i> Top Trending Bulletins
+                </h3>
+                <span class="text-xs text-slate-500 font-semibold">Live Auto Feed</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Result List -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-2.5 px-4 text-center text-sm">
+                        <i class="fa-solid fa-trophy me-2"></i> RESULTS / MARKS
+                    </div>
+                    <ul id="quickResultsList" class="divide-y divide-slate-100 text-xs sm:text-sm max-h-56 overflow-y-auto custom-scrollbar"></ul>
+                </div>
+
+                <!-- Admit Cards -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold py-2.5 px-4 text-center text-sm">
+                        <i class="fa-solid fa-id-card me-2"></i> ADMIT CARDS
+                    </div>
+                    <ul id="quickAdmitList" class="divide-y divide-slate-100 text-xs sm:text-sm max-h-56 overflow-y-auto custom-scrollbar"></ul>
+                </div>
+
+                <!-- Latest Jobs -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-2.5 px-4 text-center text-sm">
+                        <i class="fa-solid fa-briefcase me-2"></i> LATEST JOBS
+                    </div>
+                    <ul id="quickJobsList" class="divide-y divide-slate-100 text-xs sm:text-sm max-h-56 overflow-y-auto custom-scrollbar"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CYBER ZONE SERVICES CAROUSEL / SECTION -->
+        <div class="mb-12 bg-gradient-to-br from-indigo-50 to-blue-50 p-6 rounded-2xl border border-indigo-100">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
+                <div>
+                    <h3 class="text-xl font-extrabold text-slate-900 flex items-center">
+                        <i class="fa-solid fa-headset text-brand-600 me-2"></i> Remjhim Cyber Services Center
+                    </h3>
+                    <p class="text-xs text-slate-600">Aap hamare cyber cafe se online kaam karwa sakte hain</p>
+                </div>
+                <button onclick="openAdminModal('services')" class="text-xs font-bold bg-white text-indigo-700 px-3 py-1.5 rounded-lg border border-indigo-200 hover:bg-indigo-50 transition">
+                    <i class="fa-solid fa-gear me-1"></i> Manage Services
+                </button>
+            </div>
+            <div id="servicesContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Dynamic Cyber Services injected here -->
+            </div>
+        </div>
+
+        <!-- MAIN JOB LISTINGS -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 mb-6 border-b border-slate-200 gap-2">
+                    <div>
+                        <h3 class="text-xl font-extrabold text-slate-900" id="currentCategoryTitle">All Active Notifications</h3>
+                        <p class="text-xs text-slate-500">Niche sabhi vacancies aur direct official application links hain</p>
+                    </div>
+                    <div class="text-xs font-semibold bg-slate-200 px-3 py-1 rounded-full text-slate-700" id="jobCountBadge">
+                        Showing 0 Items
+                    </div>
+                </div>
+
+                <div id="jobsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+
+                <div id="emptyState" class="hidden text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300 p-8">
+                    <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
+                    <p class="text-slate-600 font-bold">Koi matching vacancy ya detail nahi mili.</p>
+                    <button onclick="filterByCategory('all')" class="mt-4 bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-brand-700 transition">
+                        Reset Filters
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDEBAR CONTACT WIDGET -->
+            <div class="space-y-6">
+                <div class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-2xl p-5 shadow-lg border border-slate-800">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center font-bold text-xl">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">Online Form Helpdesk</h4>
+                            <p class="text-xs text-slate-300" id="sidebarShopName">Remjhim Cyber Zone</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+                        Ghar baithe safe online form bharwane ke liye direct documents WhatsApp karein.
+                    </p>
+                    <a id="sidebarWaBtn" href="#" target="_blank" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white text-xs font-extrabold py-2.5 rounded-lg shadow transition">
+                        <i class="fa-brands fa-whatsapp me-1"></i> Send Documents
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
+                    <h4 class="font-extrabold text-slate-900 text-sm pb-2 border-b border-slate-100 flex items-center">
+                        <i class="fa-solid fa-location-dot text-brand-600 me-2"></i> Cyber Center Info
+                    </h4>
+                    <p class="text-xs text-slate-600 leading-relaxed" id="shopAddressDisplay">
+                        Main Road, Cyber Zone Center, City
+                    </p>
+                    <div class="text-xs text-slate-700 space-y-1 font-medium">
+                        <p><i class="fa-solid fa-clock me-1.5 text-slate-400"></i> Hours: <span id="shopHoursDisplay">08:00 AM - 08:00 PM</span></p>
+                        <p><i class="fa-solid fa-phone me-1.5 text-slate-400"></i> Phone: <span id="shopPhoneDisplay">+91 9876543210</span></p>
+                        <p><i class="fa-solid fa-envelope me-1.5 text-slate-400"></i> Email: <span id="shopEmailDisplay">remjhimcyber@gmail.com</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JOB DETAILS MODAL -->
+    <div id="jobDetailModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 relative">
+            <div class="sticky top-0 bg-white px-6 py-4 border-b border-slate-200 flex justify-between items-center z-10">
+                <div>
+                    <span id="modalCategoryBadge" class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-brand-100 text-brand-700">Category</span>
+                    <h3 id="modalTitle" class="text-lg sm:text-xl font-black text-slate-900 mt-1">Title</h3>
+                </div>
+                <button onclick="closeDetailModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs">
+                    <div>
+                        <span class="text-slate-500 block">Department:</span>
+                        <strong id="modalDept" class="text-slate-800 font-bold">N/A</strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 block">Total Vacancy:</span>
+                        <strong id="modalVacancy" class="text-brand-600 font-bold">N/A</strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 block">Last Date:</span>
+                        <strong id="modalLastDate" class="text-red-600 font-bold">N/A</strong>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div class="border border-slate-200 rounded-xl p-3 bg-white">
+                        <h4 class="font-bold text-slate-900 mb-2 border-b pb-1"><i class="fa-solid fa-indian-rupee-sign text-emerald-600 me-1"></i> Fee Details</h4>
+                        <p id="modalFee" class="text-slate-600">N/A</p>
+                    </div>
+                    <div class="border border-slate-200 rounded-xl p-3 bg-white">
+                        <h4 class="font-bold text-slate-900 mb-2 border-b pb-1"><i class="fa-solid fa-user-graduate text-brand-600 me-1"></i> Eligibility</h4>
+                        <p id="modalEligibility" class="text-slate-600">N/A</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-2">Description / Highlights:</h4>
+                    <p id="modalDescription" class="text-xs sm:text-sm text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-200">N/A</p>
+                </div>
+            </div>
+
+            <div class="sticky bottom-0 bg-slate-50 px-6 py-4 border-t border-slate-200 flex justify-end space-x-3">
+                <a id="modalOfficialLink" href="#" target="_blank" class="px-4 py-2 border rounded-lg text-xs font-bold text-slate-700 bg-white hover:bg-slate-100">Official Link</a>
+                <a id="modalApplyLink" href="#" target="_blank" class="px-5 py-2 rounded-lg text-xs font-extrabold text-white bg-brand-600 hover:bg-brand-700">Apply Online</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN EDIT & MANAGEMENT SYSTEM MODAL -->
+    <div id="adminModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-white rounded-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden flex flex-col shadow-2xl border border-slate-800">
+            <!-- Header -->
+            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shrink-0">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 bg-amber-500 rounded-full animate-ping"></span>
+                    <h3 class="text-base sm:text-lg font-bold"><i class="fa-solid fa-sliders text-amber-400 me-2"></i> Full Website Editor & Admin Dashboard</h3>
+                </div>
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Auth Panel -->
+            <div id="adminAuthBox" class="p-8 text-center my-auto">
+                <div class="max-w-sm mx-auto space-y-4">
+                    <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <h4 class="font-extrabold text-lg text-slate-900">Admin PIN Required</h4>
+                    <p class="text-xs text-slate-500">Website edit karne ke liye PIN dalkar login karein. (Default PIN: <strong class="text-brand-600">1234</strong>)</p>
+                    <input type="password" id="adminPassInput" placeholder="Enter PIN" class="w-full text-center px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    <button onclick="verifyAdminPassword()" class="w-full bg-brand-600 text-white text-sm font-bold py-2.5 rounded-lg hover:bg-brand-700">
+                        Unlock Admin Panel
+                    </button>
+                </div>
+            </div>
+
+            <!-- Master Admin Content -->
+            <div id="adminDashboardContent" class="hidden flex-grow overflow-y-auto p-4 sm:p-6 custom-scrollbar space-y-6">
+                <!-- Navigation Tabs -->
+                <div class="flex flex-wrap gap-2 bg-slate-100 p-2 rounded-xl border border-slate-200 text-xs font-bold">
+                    <button id="adminTabJobs" onclick="switchAdminTab('jobs')" class="admin-tab-btn px-4 py-2 rounded-lg bg-white text-brand-600 shadow-sm">
+                        <i class="fa-solid fa-briefcase me-1"></i> Jobs & Results
+                    </button>
+                    <button id="adminTabServices" onclick="switchAdminTab('services')" class="admin-tab-btn px-4 py-2 rounded-lg text-slate-600 hover:bg-white">
+                        <i class="fa-solid fa-gears me-1"></i> Cyber Services
+                    </button>
+                    <button id="adminTabBranding" onclick="switchAdminTab('branding')" class="admin-tab-btn px-4 py-2 rounded-lg text-slate-600 hover:bg-white">
+                        <i class="fa-solid fa-pen-ruler me-1"></i> Site Logo, Header & Hero
+                    </button>
+                    <button id="adminTabContact" onclick="switchAdminTab('contact')" class="admin-tab-btn px-4 py-2 rounded-lg text-slate-600 hover:bg-white">
+                        <i class="fa-solid fa-address-book me-1"></i> Phone, Address & Socials
+                    </button>
+                    <button onclick="resetFullWebsiteToDefault()" class="ml-auto text-red-600 hover:bg-red-50 px-3 py-2 rounded-lg transition">
+                        <i class="fa-solid fa-rotate-left me-1"></i> Reset Full Site
+                    </button>
+                </div>
+
+                <!-- SECTION 1: JOBS MANAGEMENT -->
+                <div id="adminSectionJobs" class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-extrabold text-sm text-slate-800">All Job Vacancies & Results</h4>
+                        <button onclick="showJobAddForm()" class="bg-brand-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-brand-700">
+                            + Add New Listing
+                        </button>
+                    </div>
+
+                    <!-- Add/Edit Job Form -->
+                    <div id="jobFormBox" class="hidden bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <form id="jobCrudForm" onsubmit="saveJobForm(event)" class="space-y-3 text-xs">
+                            <input type="hidden" id="crudJobId">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="font-bold">Title *</label>
+                                    <input type="text" id="crudJobTitle" required class="w-full p-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="font-bold">Department *</label>
+                                    <input type="text" id="crudJobDept" required class="w-full p-2 border rounded-lg">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div>
+                                    <label class="font-bold">Category *</label>
+                                    <select id="crudJobCategory" class="w-full p-2 border rounded-lg bg-white">
+                                        <option value="Latest Job">Latest Job</option>
+                                        <option value="Admit Card">Admit Card</option>
+                                        <option value="Result">Result</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="font-bold">Vacancy</label>
+                                    <input type="text" id="crudJobVacancy" class="w-full p-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="font-bold">Last Date *</label>
+                                    <input type="text" id="crudJobLastDate" required class="w-full p-2 border rounded-lg">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="font-bold">Fee Info</label>
+                                    <input type="text" id="crudJobFee" class="w-full p-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="font-bold">Qualification</label>
+                                    <input type="text" id="crudJobEligibility" class="w-full p-2 border rounded-lg">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="font-bold">Apply Link *</label>
+                                    <input type="url" id="crudJobApplyLink" required class="w-full p-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="font-bold">Notification PDF / Web Link</label>
+                                    <input type="url" id="crudJobOfficialLink" class="w-full p-2 border rounded-lg">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="font-bold">Description</label>
+                                <textarea id="crudJobDesc" rows="2" class="w-full p-2 border rounded-lg"></textarea>
+                            </div>
+                            <div class="flex justify-end space-x-2">
+                                <button type="button" onclick="hideJobForm()" class="px-3 py-1.5 border rounded-lg font-bold">Cancel</button>
+                                <button type="submit" class="px-4 py-1.5 bg-brand-600 text-white rounded-lg font-bold">Save Job</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Job Table -->
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl bg-white">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-100 font-bold">
+                                <tr>
+                                    <th class="p-2.5">Title</th>
+                                    <th class="p-2.5">Category</th>
+                                    <th class="p-2.5">Last Date</th>
+                                    <th class="p-2.5 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminJobsTableBody" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: CYBER SERVICES MANAGEMENT -->
+                <div id="adminSectionServices" class="hidden space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-extrabold text-sm text-slate-800">Manage Cyber Services</h4>
+                        <button onclick="showServiceAddForm()" class="bg-purple-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-purple-700">
+                            + Add New Cyber Service
+                        </button>
+                    </div>
+
+                    <div id="serviceFormBox" class="hidden bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <form id="serviceCrudForm" onsubmit="saveServiceForm(event)" class="space-y-3 text-xs">
+                            <input type="hidden" id="crudServiceId">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="font-bold">Service Title *</label>
+                                    <input type="text" id="crudServiceTitle" required placeholder="e.g. PAN Card Apply" class="w-full p-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="font-bold">FontAwesome Icon Class *</label>
+                                    <input type="text" id="crudServiceIcon" required placeholder="fa-solid fa-address-card" class="w-full p-2 border rounded-lg">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="font-bold">Processing Charge / Price *</label>
+                                    <input type="text" id="crudServiceFee" required placeholder="e.g. ?150 Only" class="w-full p-2 border rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="font-bold">Service Category / Badge</label>
+                                    <input type="text" id="crudServiceBadge" placeholder="e.g. Fast 24HR" class="w-full p-2 border rounded-lg">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="font-bold">Short Summary *</label>
+                                <textarea id="crudServiceDesc" rows="2" required placeholder="Requirements..." class="w-full p-2 border rounded-lg"></textarea>
+                            </div>
+                            <div class="flex justify-end space-x-2">
+                                <button type="button" onclick="hideServiceForm()" class="px-3 py-1.5 border rounded-lg font-bold">Cancel</button>
+                                <button type="submit" class="px-4 py-1.5 bg-purple-600 text-white rounded-lg font-bold">Save Service</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl bg-white">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-100 font-bold">
+                                <tr>
+                                    <th class="p-2.5">Icon & Service Name</th>
+                                    <th class="p-2.5">Badge</th>
+                                    <th class="p-2.5">Fee</th>
+                                    <th class="p-2.5 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminServicesTableBody" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: BRANDING & HERO TEXT EDITOR -->
+                <div id="adminSectionBranding" class="hidden bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4 text-xs">
+                    <h4 class="font-extrabold text-sm text-slate-800 pb-2 border-b"><i class="fa-solid fa-image text-brand-600 me-2"></i> Logo & Header Customization</h4>
+                    
+                    <!-- LOGO UPLOAD & PREVIEW OPTION -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+                        <label class="font-bold text-slate-800 block text-xs">Website Logo Setup (Upload Custom Logo or Image URL)</label>
+                        <div class="flex flex-col sm:flex-row items-center gap-4">
+                            <!-- Logo Live Preview Box -->
+                            <div class="w-20 h-20 bg-slate-100 rounded-xl border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden shrink-0">
+                                <img id="logoPreviewImg" src="" alt="Logo Preview" class="w-full h-full object-contain hidden">
+                                <i id="logoPreviewIcon" class="fa-solid fa-laptop-code text-3xl text-brand-600"></i>
+                            </div>
+                            <div class="space-y-2 flex-grow w-full">
+                                <div>
+                                    <label class="text-[11px] font-semibold text-slate-600 block mb-1">Option 1: Device se Logo Upload karein (PNG / JPG)</label>
+                                    <input type="file" id="logoFileInput" accept="image/*" onchange="handleLogoFileUpload(event)" class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100">
+                                </div>
+                                <div>
+                                    <label class="text-[11px] font-semibold text-slate-600 block mb-1">Option 2: Direct Image URL Paste karein</label>
+                                    <input type="url" id="editLogoUrl" oninput="handleLogoUrlInput(this.value)" placeholder="https://example.com/logo.png" class="w-full p-2 border rounded-lg">
+                                </div>
+                                <button type="button" onclick="removeCustomLogo()" class="text-[11px] font-bold text-red-600 hover:underline">
+                                    <i class="fa-solid fa-trash me-1"></i> Remove Custom Logo (Use Default Icon)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Website Main Name *</label>
+                            <input type="text" id="editSiteName" class="w-full p-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Tagline Subtitle *</label>
+                            <input type="text" id="editSiteTagline" class="w-full p-2 border rounded-lg">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Top Announcement Marquee Text</label>
+                            <input type="text" id="editAnnouncement" class="w-full p-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Default Header Icon Class (If Logo Image Not Used)</label>
+                            <input type="text" id="editBrandIcon" class="w-full p-2 border rounded-lg" placeholder="fa-solid fa-laptop-code">
+                        </div>
+                    </div>
+
+                    <h4 class="font-extrabold text-sm text-slate-800 pt-3 pb-2 border-b">Hero Section Headline & Banner</h4>
+
+                    <div class="space-y-3">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Hero Main Banner Headline *</label>
+                            <input type="text" id="editHeroTitle" class="w-full p-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Hero Subtitle Paragraph *</label>
+                            <textarea id="editHeroSubtitle" rows="2" class="w-full p-2 border rounded-lg"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button onclick="saveBrandingSettings()" class="bg-brand-600 text-white font-extrabold px-5 py-2 rounded-lg hover:bg-brand-700">
+                            Save Branding & Logo Changes
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SECTION 4: CONTACT & FOOTER EDITOR -->
+                <div id="adminSectionContact" class="hidden bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4 text-xs">
+                    <h4 class="font-extrabold text-sm text-slate-800 pb-2 border-b">Shop Contact & WhatsApp Numbers</h4>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">WhatsApp Number (with country code, e.g. 919876543210) *</label>
+                            <input type="text" id="editWhatsApp" class="w-full p-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Calling Phone Number *</label>
+                            <input type="text" id="editPhone" class="w-full p-2 border rounded-lg">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Shop Address Location *</label>
+                            <input type="text" id="editAddress" class="w-full p-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="font-bold text-slate-700 block mb-1">Email Address</label>
+                            <input type="email" id="editEmail" class="w-full p-2 border rounded-lg">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Shop Opening Hours</label>
+                        <input type="text" id="editHours" class="w-full p-2 border rounded-lg" placeholder="08:00 AM - 08:00 PM">
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button onclick="saveContactSettings()" class="bg-brand-600 text-white font-extrabold px-5 py-2 rounded-lg hover:bg-brand-700">
+                            Save Contact Details
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <h4 class="text-white font-extrabold text-sm mb-2" id="footerNameDisplay">Remjhim Cyber Zone</h4>
+                    <p class="text-slate-400 leading-relaxed" id="footerTaglineDisplay">
+                        Aapka apna bharosemand Cyber Cafe & Job Portal.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-extrabold text-sm mb-2">Quick Navigation</h4>
+                    <ul class="space-y-1">
+                        <li><a href="#" onclick="filterByCategory('Latest Job')" class="hover:text-white">Latest Government Jobs</a></li>
+                        <li><a href="#" onclick="filterByCategory('Admit Card')" class="hover:text-white">Admit Card Downloads</a></li>
+                        <li><a href="#" onclick="filterByCategory('Result')" class="hover:text-white">Sarkari Results</a></li>
+                        <li><a href="#" onclick="showCyberServicesModal()" class="hover:text-white">Cyber Cafe Services</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-extrabold text-sm mb-2">Contact Support</h4>
+                    <p class="text-slate-400 leading-relaxed mb-2">Form fillup aur kisi bhi online help ke liye contact karein.</p>
+                    <p class="text-amber-400 font-bold"><i class="fa-solid fa-headset me-1"></i> Helpline: <span id="footerPhoneDisplay">+91 9876543210</span></p>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-4 text-center text-slate-500">
+                <p>© <span id="currentYear"></span> <span id="copyrightName">Remjhim Cyber Zone</span>. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIC & STATE ENGINE -->
+    <script>
+        // Default Configurations
+        const DEFAULT_SETTINGS = {
+            siteName: "REMJHIM CYBER ZONE",
+            siteTagline: "SARKARI RESULT, ONLINE FORMS & ADMIT CARD",
+            logoUrl: "", // Custom Logo Image Data URL or Link
+            brandIcon: "fa-solid fa-laptop-code",
+            announcement: "?? SSC GD, Railway RRB Technician, Bihar Police & Sarkari Yojana ke sabse tez updates yahan dekhein | Form Bharwane Ke Liye Direct WhatsApp Par Sampark Karein",
+            heroTitle: "Sabhi Sarkari Result, Admit Card & Online Forms Ek Jagah",
+            heroSubtitle: "Bihar, UP aur Central Government ke sabhi latest vacancies ke official links, notifications aur Cyber Zone se ghar baithe form bharwane ki suvidha.",
+            whatsapp: "919876543210",
+            phone: "+91 9876543210",
+            address: "Main Road, Near Bus Stand / Station Area, Ward No. 04",
+            email: "remjhimcyber@gmail.com",
+            hours: "08:00 AM - 08:00 PM"
+        };
+
+        const DEFAULT_SERVICES = [
+            {
+                id: "srv-1",
+                title: "Ghar Baithe PAN Card Banwayein",
+                icon: "fa-solid fa-address-card",
+                fee: "?150 Charges",
+                badge: "Fast 24 Hours",
+                desc: "Naya PAN Card ya Name/DOB Correction karwayein bina shop aaye."
+            },
+            {
+                id: "srv-2",
+                title: "Income / Caste / Residence Certificate",
+                icon: "fa-solid fa-file-invoice",
+                fee: "Govt Fee + Service",
+                badge: "RTPS Bihar/UP",
+                desc: "Jati, Aay, Niwas praman patra online aavedan."
+            },
+            {
+                id: "srv-3",
+                title: "Aadhaar / Voter ID Downloads & Correction",
+                icon: "fa-solid fa-id-badge",
+                fee: "Minimal Fee",
+                badge: "Instant PVC",
+                desc: "Aadhaar Card PVC Print & Voter card link service."
+            },
+            {
+                id: "srv-4",
+                title: "PF / EPFO Passbook Check & Withdrawal",
+                icon: "fa-solid fa-wallet",
+                fee: "Service Charge",
+                badge: "Full Safe",
+                desc: "Company PF ka paisa nikalne ke liye online claim karein."
+            }
+        ];
+
+        const DEFAULT_JOBS = [
+            {
+                id: "job-101",
+                title: "SSC GD Constable Recruitment 2026",
+                dept: "Staff Selection Commission (SSC)",
+                category: "Latest Job",
+                vacancy: "39,481 Posts",
+                lastDate: "30/11/2026",
+                fee: "General / OBC: ?100 | SC / ST / Female: ?0",
+                eligibility: "10th Class Passed from Recognized Board.",
+                applyLink: "https://ssc.gov.in",
+                officialLink: "https://ssc.gov.in",
+                description: "BSF, CISF, CRPF, ITBP me GD Constable Bharti."
+            },
+            {
+                id: "job-102",
+                title: "Bihar Police Constable Admit Card 2026",
+                dept: "Central Selection Board of Constable (CSBC)",
+                category: "Admit Card",
+                vacancy: "21,391 Posts",
+                lastDate: "Exam: Dec 2026",
+                fee: "N/A",
+                eligibility: "12th Pass",
+                applyLink: "https://csbc.bihar.gov.in",
+                officialLink: "https://csbc.bihar.gov.in",
+                description: "Bihar Police constable admit card link live."
+            },
+            {
+                id: "job-103",
+                title: "UP Police Constable Written Exam Result",
+                dept: "Uttar Pradesh Police Board",
+                category: "Result",
+                vacancy: "60,244 Posts",
+                lastDate: "Active Now",
+                fee: "N/A",
+                eligibility: "Written Exam Candidates",
+                applyLink: "https://uppbpb.gov.in",
+                officialLink: "https://uppbpb.gov.in",
+                description: "Cut off marks aur merit list PDF available."
+            }
+        ];
+
+        // Active State Variables
+        let siteSettings = {};
+        let servicesData = [];
+        let jobsData = [];
+        let currentFilter = 'all';
+        let searchQuery = '';
+        let isAdminLoggedIn = false;
+
+        // On Page Load Initialization
+        window.onload = function() {
+            document.getElementById('currentYear').innerText = new Date().getFullYear();
+            loadAllDataFromStorage();
+            applySiteSettingsToUI();
+            renderAllViews();
+        };
+
+        function loadAllDataFromStorage() {
+            // Settings
+            const savedSettings = localStorage.getItem('rcz_settings');
+            siteSettings = savedSettings ? JSON.parse(savedSettings) : {...DEFAULT_SETTINGS};
+
+            // Services
+            const savedServices = localStorage.getItem('rcz_services');
+            servicesData = savedServices ? JSON.parse(savedServices) : [...DEFAULT_SERVICES];
+
+            // Jobs
+            const savedJobs = localStorage.getItem('rcz_jobs');
+            jobsData = savedJobs ? JSON.parse(savedJobs) : [...DEFAULT_JOBS];
+        }
+
+        function saveSettingsToStorage() {
+            localStorage.setItem('rcz_settings', JSON.stringify(siteSettings));
+            applySiteSettingsToUI();
+        }
+
+        function saveServicesToStorage() {
+            localStorage.setItem('rcz_services', JSON.stringify(servicesData));
+            renderServicesUI();
+        }
+
+        function saveJobsToStorage() {
+            localStorage.setItem('rcz_jobs', JSON.stringify(jobsData));
+            renderAllViews();
+        }
+
+        function resetFullWebsiteToDefault() {
+            if (confirm("Kya aap sach me poori website ko default setting par reset karna chahte hain? Sabhi custom edits hat jayenge.")) {
+                siteSettings = {...DEFAULT_SETTINGS};
+                servicesData = [...DEFAULT_SERVICES];
+                jobsData = [...DEFAULT_JOBS];
+                
+                saveSettingsToStorage();
+                saveServicesToStorage();
+                saveJobsToStorage();
+                
+                alert("Website Successfully Reset Ho Gayi!");
+                closeAdminModal();
+            }
+        }
+
+        // Apply Custom Branding & Contact Settings across DOM
+        function applySiteSettingsToUI() {
+            // Site Title & Tagline
+            document.getElementById('siteNameDisplay').innerHTML = siteSettings.siteName;
+            document.getElementById('siteTaglineDisplay').innerText = siteSettings.siteTagline;
+            document.getElementById('footerNameDisplay').innerText = siteSettings.siteName;
+            document.getElementById('footerTaglineDisplay').innerText = siteSettings.siteTagline;
+            document.getElementById('copyrightName').innerText = siteSettings.siteName;
+            document.getElementById('sidebarShopName').innerText = siteSettings.siteName;
+            document.title = siteSettings.siteName + " - Portal";
+
+            // Logo Rendering (Image URL or Font Icon)
+            const iconBox = document.getElementById('brandIconBox');
+            if (siteSettings.logoUrl && siteSettings.logoUrl.trim() !== '') {
+                iconBox.innerHTML = `<img src="${siteSettings.logoUrl}" alt="Logo" class="w-full h-full object-cover rounded-xl">`;
+            } else {
+                iconBox.innerHTML = `<i id="brandIcon" class="${siteSettings.brandIcon || 'fa-solid fa-laptop-code'} text-2xl"></i>`;
+            }
+
+            // Announcements
+            document.getElementById('announcementText').innerText = siteSettings.announcement;
+
+            // Hero
+            document.getElementById('heroTitleDisplay').innerText = siteSettings.heroTitle;
+            document.getElementById('heroSubtitleDisplay').innerText = siteSettings.heroSubtitle;
+
+            // Contacts
+            document.getElementById('topPhoneText').innerText = siteSettings.phone;
+            document.getElementById('topPhoneLink').href = "tel:" + siteSettings.phone;
+            document.getElementById('shopPhoneDisplay').innerText = siteSettings.phone;
+            document.getElementById('footerPhoneDisplay').innerText = siteSettings.phone;
+
+            const waUrl = `https://wa.me/${siteSettings.whatsapp}?text=Hello%20${encodeURIComponent(siteSettings.siteName)},%20mujhe%20online%20service%20chahiye.`;
+            document.getElementById('topWhatsAppLink').href = waUrl;
+            document.getElementById('headerWaBtn').href = waUrl;
+            document.getElementById('sidebarWaBtn').href = waUrl;
+
+            document.getElementById('shopAddressDisplay').innerText = siteSettings.address;
+            document.getElementById('shopHoursDisplay').innerText = siteSettings.hours;
+            document.getElementById('shopEmailDisplay').innerText = siteSettings.email;
+        }
+
+        // Render All Views
+        function renderAllViews() {
+            renderServicesUI();
+            renderFilteredJobCards();
+            renderQuickSummaryLists();
+        }
+
+        // Render Cyber Services Grid
+        function renderServicesUI() {
+            const container = document.getElementById('servicesContainer');
+            if (servicesData.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 col-span-full">Koi service added nahi hai.</p>`;
+                return;
+            }
+
+            container.innerHTML = servicesData.map(srv => {
+                const waUrl = `https://wa.me/${siteSettings.whatsapp}?text=Mujhe%20"${encodeURIComponent(srv.title)}"%20ke%20liye%20apply%20karwana%20hai.`;
+                return `
+                <div class="bg-white rounded-xl p-4 border border-indigo-100 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="w-9 h-9 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center text-lg">
+                                <i class="${srv.icon}"></i>
+                            </div>
+                            <span class="text-[10px] bg-purple-100 text-purple-800 font-extrabold px-2 py-0.5 rounded">
+                                ${srv.badge || 'Service'}
+                            </span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">${srv.title}</h4>
+                        <p class="text-xs text-slate-500 mb-3">${srv.desc}</p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs font-bold text-emerald-600">${srv.fee}</span>
+                        <a href="${waUrl}" target="_blank" class="text-xs bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg font-bold transition">
+                            <i class="fa-brands fa-whatsapp me-1"></i> Apply
+                        </a>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Quick Lists
+        function renderQuickSummaryLists() {
+            const resultsUl = document.getElementById('quickResultsList');
+            const admitUl = document.getElementById('quickAdmitList');
+            const jobsUl = document.getElementById('quickJobsList');
+
+            const results = jobsData.filter(j => j.category === 'Result');
+            const admits = jobsData.filter(j => j.category === 'Admit Card');
+            const jobs = jobsData.filter(j => j.category === 'Latest Job');
+
+            resultsUl.innerHTML = buildQuickListHTML(results);
+            admitUl.innerHTML = buildQuickListHTML(admits);
+            jobsUl.innerHTML = buildQuickListHTML(jobs);
+        }
+
+        function buildQuickListHTML(list) {
+            if (list.length === 0) return `<li class="p-3 text-slate-400 text-center">Nahi mila</li>`;
+            return list.map(item => `
+                <li class="p-2.5 hover:bg-slate-50 transition flex items-center justify-between cursor-pointer" onclick="openJobDetail('${item.id}')">
+                    <span class="font-semibold text-slate-800 truncate pr-2">
+                        <i class="fa-solid fa-angle-right text-[10px] me-1 text-slate-400"></i>${item.title}
+                    </span>
+                    <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-bold shrink-0">View</span>
+                </li>
+            `).join('');
+        }
+
+        // Job Filtering & Cards
+        function renderFilteredJobCards() {
+            const container = document.getElementById('jobsContainer');
+            const emptyState = document.getElementById('emptyState');
+            const countBadge = document.getElementById('jobCountBadge');
+            const titleElement = document.getElementById('currentCategoryTitle');
+
+            if (currentFilter === 'all') titleElement.innerText = "All Active Notifications";
+            else titleElement.innerText = `${currentFilter} Updates`;
+
+            let filtered = jobsData.filter(job => {
+                const matchesCat = (currentFilter === 'all') || (job.category === currentFilter);
+                const q = searchQuery.toLowerCase();
+                const matchesSearch = job.title.toLowerCase().includes(q) || job.dept.toLowerCase().includes(q);
+                return matchesCat && matchesSearch;
+            });
+
+            countBadge.innerText = `Showing ${filtered.length} Items`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            container.innerHTML = filtered.map(job => {
+                let badgeStyle = "bg-blue-100 text-blue-700";
+                if(job.category === 'Admit Card') badgeStyle = "bg-amber-100 text-amber-800";
+                if(job.category === 'Result') badgeStyle = "bg-emerald-100 text-emerald-800";
+
+                return `
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full ${badgeStyle}">
+                                ${job.category}
+                            </span>
+                            <span class="text-xs text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded">
+                                ${job.lastDate}
+                            </span>
+                        </div>
+                        <h4 class="font-extrabold text-slate-900 text-base leading-snug mb-1">${job.title}</h4>
+                        <p class="text-xs text-slate-500 font-medium mb-3">${job.dept}</p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 flex space-x-2">
+                        <button onclick="openJobDetail('${job.id}')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold py-2 rounded-lg">Details</button>
+                        <a href="${job.applyLink}" target="_blank" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-2 rounded-lg text-center">Apply Link</a>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function filterByCategory(cat) {
+            currentFilter = cat;
+            renderFilteredJobCards();
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value;
+            renderFilteredJobCards();
+        }
+
+        function openJobDetail(id) {
+            const job = jobsData.find(j => j.id === id);
+            if (!job) return;
+
+            document.getElementById('modalTitle').innerText = job.title;
+            document.getElementById('modalDept').innerText = job.dept;
+            document.getElementById('modalCategoryBadge').innerText = job.category;
+            document.getElementById('modalVacancy').innerText = job.vacancy || 'N/A';
+            document.getElementById('modalLastDate').innerText = job.lastDate || 'N/A';
+            document.getElementById('modalFee').innerText = job.fee || 'N/A';
+            document.getElementById('modalEligibility').innerText = job.eligibility || 'N/A';
+            document.getElementById('modalDescription').innerText = job.description || 'N/A';
+
+            document.getElementById('modalApplyLink').href = job.applyLink;
+            document.getElementById('modalOfficialLink').href = job.officialLink || job.applyLink;
+
+            document.getElementById('jobDetailModal').classList.remove('hidden');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('jobDetailModal').classList.add('hidden');
+        }
+
+        function showCyberServicesModal() {
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+
+        // Master Admin Functionality
+        function openAdminModal(defaultTab = 'jobs') {
+            document.getElementById('adminModal').classList.remove('hidden');
+            if (!isAdminLoggedIn) {
+                document.getElementById('adminAuthBox').classList.remove('hidden');
+                document.getElementById('adminDashboardContent').classList.add('hidden');
+            } else {
+                document.getElementById('adminAuthBox').classList.add('hidden');
+                document.getElementById('adminDashboardContent').classList.remove('hidden');
+                switchAdminTab(defaultTab);
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+
+        function verifyAdminPassword() {
+            const p = document.getElementById('adminPassInput').value;
+            if (p === '1234') {
+                isAdminLoggedIn = true;
+                document.getElementById('adminAuthBox').classList.add('hidden');
+                document.getElementById('adminDashboardContent').classList.remove('hidden');
+                populateAdminForms();
+                switchAdminTab('jobs');
+            } else {
+                alert("Incorrect PIN Code!");
+            }
+        }
+
+        function switchAdminTab(tab) {
+            // Hide all sections
+            ['Jobs', 'Services', 'Branding', 'Contact'].forEach(s => {
+                document.getElementById('adminSection' + s).classList.add('hidden');
+            });
+
+            // Show target
+            if (tab === 'jobs') document.getElementById('adminSectionJobs').classList.remove('hidden');
+            if (tab === 'services') document.getElementById('adminSectionServices').classList.remove('hidden');
+            if (tab === 'branding') document.getElementById('adminSectionBranding').classList.remove('hidden');
+            if (tab === 'contact') document.getElementById('adminSectionContact').classList.remove('hidden');
+
+            populateAdminForms();
+        }
+
+        function populateAdminForms() {
+            // Branding & Logo
+            document.getElementById('editSiteName').value = siteSettings.siteName;
+            document.getElementById('editSiteTagline').value = siteSettings.siteTagline;
+            document.getElementById('editAnnouncement').value = siteSettings.announcement;
+            document.getElementById('editBrandIcon').value = siteSettings.brandIcon || 'fa-solid fa-laptop-code';
+            document.getElementById('editLogoUrl').value = siteSettings.logoUrl || '';
+            document.getElementById('editHeroTitle').value = siteSettings.heroTitle;
+            document.getElementById('editHeroSubtitle').value = siteSettings.heroSubtitle;
+
+            updateLogoAdminPreview(siteSettings.logoUrl);
+
+            // Contacts
+            document.getElementById('editWhatsApp').value = siteSettings.whatsapp;
+            document.getElementById('editPhone').value = siteSettings.phone;
+            document.getElementById('editAddress').value = siteSettings.address;
+            document.getElementById('editEmail').value = siteSettings.email;
+            document.getElementById('editHours').value = siteSettings.hours;
+
+            // Tables
+            renderAdminJobsTable();
+            renderAdminServicesTable();
+        }
+
+        // Handle Logo Upload via File
+        function handleLogoFileUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64Url = event.target.result;
+                document.getElementById('editLogoUrl').value = base64Url;
+                updateLogoAdminPreview(base64Url);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleLogoUrlInput(url) {
+            updateLogoAdminPreview(url);
+        }
+
+        function updateLogoAdminPreview(url) {
+            const img = document.getElementById('logoPreviewImg');
+            const icon = document.getElementById('logoPreviewIcon');
+            if (url && url.trim() !== '') {
+                img.src = url;
+                img.classList.remove('hidden');
+                icon.classList.add('hidden');
+            } else {
+                img.src = '';
+                img.classList.add('hidden');
+                icon.className = (document.getElementById('editBrandIcon').value || 'fa-solid fa-laptop-code') + " text-3xl text-brand-600";
+                icon.classList.remove('hidden');
+            }
+        }
+
+        function removeCustomLogo() {
+            document.getElementById('editLogoUrl').value = '';
+            document.getElementById('logoFileInput').value = '';
+            updateLogoAdminPreview('');
+        }
+
+        // Branding & Contact Save
+        function saveBrandingSettings() {
+            siteSettings.siteName = document.getElementById('editSiteName').value;
+            siteSettings.siteTagline = document.getElementById('editSiteTagline').value;
+            siteSettings.announcement = document.getElementById('editAnnouncement').value;
+            siteSettings.brandIcon = document.getElementById('editBrandIcon').value;
+            siteSettings.heroTitle = document.getElementById('editHeroTitle').value;
+            siteSettings.heroSubtitle = document.getElementById('editHeroSubtitle').value;
+
+            saveSettingsToStorage();
+            alert("Site Header & Branding Settings Saved!");
+        }
+
+        function saveContactSettings() {
+            siteSettings.whatsapp = document.getElementById('editWhatsApp').value;
+            siteSettings.phone = document.getElementById('editPhone').value;
+            siteSettings.address = document.getElementById('editAddress').value;
+            siteSettings.email = document.getElementById('editEmail').value;
+            siteSettings.hours = document.getElementById('editHours').value;
+
+            saveSettingsToStorage();
+            alert("Contact Details & Numbers Saved!");
+        }
+
+        // Jobs CRUD
+        function renderAdminJobsTable() {
+            const tbody = document.getElementById('adminJobsTableBody');
+            tbody.innerHTML = jobsData.map(j => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-2.5 font-bold">${j.title}</td>
+                    <td class="p-2.5">${j.category}</td>
+                    <td class="p-2.5 text-red-600 font-bold">${j.lastDate}</td>
+                    <td class="p-2.5 text-right space-x-1">
+                        <button onclick="editJobItem('${j.id}')" class="bg-slate-100 p-1.5 rounded text-xs font-bold">Edit</button>
+                        <button onclick="deleteJobItem('${j.id}')" class="bg-red-50 text-red-600 p-1.5 rounded text-xs font-bold">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function showJobAddForm() {
+            document.getElementById('jobCrudForm').reset();
+            document.getElementById('crudJobId').value = '';
+            document.getElementById('jobFormBox').classList.remove('hidden');
+        }
+
+        function hideJobForm() {
+            document.getElementById('jobFormBox').classList.add('hidden');
+        }
+
+        function saveJobForm(e) {
+            e.preventDefault();
+            const id = document.getElementById('crudJobId').value;
+            const newObj = {
+                id: id || 'job-' + Date.now(),
+                title: document.getElementById('crudJobTitle').value,
+                dept: document.getElementById('crudJobDept').value,
+                category: document.getElementById('crudJobCategory').value,
+                vacancy: document.getElementById('crudJobVacancy').value,
+                lastDate: document.getElementById('crudJobLastDate').value,
+                fee: document.getElementById('crudJobFee').value,
+                eligibility: document.getElementById('crudJobEligibility').value,
+                applyLink: document.getElementById('crudJobApplyLink').value,
+                officialLink: document.getElementById('crudJobOfficialLink').value,
+                description: document.getElementById('crudJobDesc').value
+            };
+
+            if (id) {
+                const idx = jobsData.findIndex(j => j.id === id);
+                if (idx !== -1) jobsData[idx] = newObj;
+            } else {
+                jobsData.unshift(newObj);
+            }
+
+            saveJobsToStorage();
+            hideJobForm();
+            renderAdminJobsTable();
+            alert("Job Saved!");
+        }
+
+        function editJobItem(id) {
+            const j = jobsData.find(item => item.id === id);
+            if(!j) return;
+            document.getElementById('crudJobId').value = j.id;
+            document.getElementById('crudJobTitle').value = j.title;
+            document.getElementById('crudJobDept').value = j.dept;
+            document.getElementById('crudJobCategory').value = j.category;
+            document.getElementById('crudJobVacancy').value = j.vacancy || '';
+            document.getElementById('crudJobLastDate').value = j.lastDate || '';
+            document.getElementById('crudJobFee').value = j.fee || '';
+            document.getElementById('crudJobEligibility').value = j.eligibility || '';
+            document.getElementById('crudJobApplyLink').value = j.applyLink;
+            document.getElementById('crudJobOfficialLink').value = j.officialLink || '';
+            document.getElementById('crudJobDesc').value = j.description || '';
+            document.getElementById('jobFormBox').classList.remove('hidden');
+        }
+
+        function deleteJobItem(id) {
+            if(confirm("Delete this listing?")) {
+                jobsData = jobsData.filter(j => j.id !== id);
+                saveJobsToStorage();
+                renderAdminJobsTable();
+            }
+        }
+
+        // Cyber Services CRUD
+        function renderAdminServicesTable() {
+            const tbody = document.getElementById('adminServicesTableBody');
+            tbody.innerHTML = servicesData.map(s => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-2.5 font-bold"><i class="${s.icon} me-1.5 text-indigo-600"></i> ${s.title}</td>
+                    <td class="p-2.5"><span class="bg-purple-100 text-purple-800 text-[10px] px-2 py-0.5 rounded font-bold">${s.badge || 'Service'}</span></td>
+                    <td class="p-2.5 text-emerald-600 font-bold">${s.fee}</td>
+                    <td class="p-2.5 text-right space-x-1">
+                        <button onclick="editServiceItem('${s.id}')" class="bg-slate-100 p-1.5 rounded text-xs font-bold">Edit</button>
+                        <button onclick="deleteServiceItem('${s.id}')" class="bg-red-50 text-red-600 p-1.5 rounded text-xs font-bold">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function showServiceAddForm() {
+            document.getElementById('serviceCrudForm').reset();
+            document.getElementById('crudServiceId').value = '';
+            document.getElementById('serviceFormBox').classList.remove('hidden');
+        }
+
+        function hideServiceForm() {
+            document.getElementById('serviceFormBox').classList.add('hidden');
+        }
+
+        function saveServiceForm(e) {
+            e.preventDefault();
+            const id = document.getElementById('crudServiceId').value;
+            const newSrv = {
+                id: id || 'srv-' + Date.now(),
+                title: document.getElementById('crudServiceTitle').value,
+                icon: document.getElementById('crudServiceIcon').value,
+                fee: document.getElementById('crudServiceFee').value,
+                badge: document.getElementById('crudServiceBadge').value,
+                desc: document.getElementById('crudServiceDesc').value
+            };
+
+            if (id) {
+                const idx = servicesData.findIndex(s => s.id === id);
+                if (idx !== -1) servicesData[idx] = newSrv;
+            } else {
+                servicesData.push(newSrv);
+            }
+
+            saveServicesToStorage();
+            hideServiceForm();
+            renderAdminServicesTable();
+            alert("Cyber Service Saved!");
+        }
+
+        function editServiceItem(id) {
+            const s = servicesData.find(item => item.id === id);
+            if(!s) return;
+            document.getElementById('crudServiceId').value = s.id;
+            document.getElementById('crudServiceTitle').value = s.title;
+            document.getElementById('crudServiceIcon').value = s.icon;
+            document.getElementById('crudServiceFee').value = s.fee;
+            document.getElementById('crudServiceBadge').value = s.badge || '';
+            document.getElementById('crudServiceDesc').value = s.desc;
+            document.getElementById('serviceFormBox').classList.remove('hidden');
+        }
+
+        function deleteServiceItem(id) {
+            if(confirm("Delete this cyber service?")) {
+                servicesData = servicesData.filter(s => s.id !== id);
+                saveServicesToStorage();
+                renderAdminServicesTable();
+            }
+        }
+    </script>
+</body>
+</html>
